@@ -55,9 +55,11 @@ clean_data ["Log_Engagement"] = np.log(clean_data["Mean_Engagement"])
 #Mean engagement vs Log Engagement to show assumptions violated for 'Mean'
 
 gapmodel = sm.add_constant(clean_data[["Avg_GDP_per_capita","Avg_Population"]])
+#Using Mean Engagement as outcome
 model_mean = sm.OLS(clean_data['Mean_Engagement'],gapmodel).fit()
 print("\nMultiple Linear Regression (Mean engagement): GDP per capita + Population")
 print(model_mean.summary())
+#Using Log Engagement as outcome
 model_log = sm.OLS(clean_data["Log_Engagement"], gapmodel).fit()
 print("\nMultiple Linear Regression (Logarithmic engagement): GDP per capita + Population")
 print(model_log.summary())
@@ -86,7 +88,7 @@ axes[0, 1].set_title("Q-Q Plot (Mean Engagement)")
 axes[0, 1].set_xlabel("Theoretical Quantiles")
 axes[0, 1].set_ylabel("Sample Quantiles")
 
-#Normality
+#Normality (mean)
 axes[0, 2].hist(residuals, bins=10, color="steelblue", edgecolor="white")
 axes[0, 2].set_title("Histogram of Residuals (Mean Engagement)")
 axes[0, 2].set_xlabel("Residual")
@@ -101,7 +103,7 @@ axes[1, 0].set_title("Residuals vs Fitted (Log Engagement)")
 axes[1, 0].set_xlabel("Fitted Values")
 axes[1, 0].set_ylabel("Residuals")
 
-#QQ plot
+#QQ plot (log)
 (osm2, osr2), (slope2, intercept2, r2) = stats.probplot(residuals_2, dist="norm")
 axes[1, 1].scatter(osm2, osr2, alpha=0.6, color="coral")
 axes[1, 1].plot(osm2, slope2 * np.array(osm2) + intercept2, color="red", linewidth=1.5)
@@ -109,7 +111,7 @@ axes[1, 1].set_title("Q-Q Plot (Log Engagement)")
 axes[1, 1].set_xlabel("Theoretical Quantiles")
 axes[1, 1].set_ylabel("Sample Quantiles")
 
-#Normality
+#Normality (log)
 axes[1, 2].hist(residuals_2, bins=10, color="coral", edgecolor="white")
 axes[1, 2].set_title("Histogram of Residuals (log Engagement)")
 axes[1, 2].set_xlabel("Residual")
@@ -118,15 +120,17 @@ axes[1, 2].set_ylabel("Frequency")
 plt.tight_layout()
 plt.show()
 
+#Normality shapiro-wilks test (mean)
 sw_stat_mean, sw_p_mean = shapiro(residuals)
 print(f"Shapiro-Wilk: W = {sw_stat_mean:.3f}, p = {sw_p_mean:.3f}")
 print(f"Residuals are {'normally distributed' if sw_p_mean > 0.05 else 'NOT normally distributed'}\n")
 
+#Normality shapiro-wilks test (log)
 sw_stat_log, sw_p_log = shapiro(residuals_2)
 print(f"Shapiro-Wilk: W = {sw_stat_log:.3f}, p = {sw_p_log:.3f}")
 print(f"Residuals are {'normally distributed' if sw_p_log > 0.05 else 'NOT normally distributed'}\n")
 
-#Multicollinearity test (VIF)
+#Multicollinearity test (VIF) between GDP per cpaita and population
 vif_test = clean_data[["Avg_GDP_per_capita","Avg_Population"]]
 vif_data = pd.DataFrame()
 vif_data["Variable"] = vif_test.columns
@@ -138,13 +142,13 @@ print(f"{'No multicollinearity concern' if all(vif_data['VIF'] < 5) else 'Multic
 
 ##Trump mention effect analysis
 
-politics["Mention"] = politics["Mention of 'Trump' (No = 0, Yes = 1)"].map({0: "No", 1:"Yes"})
-politics["Mention_dummy"] = politics["Mention of 'Trump' (No = 0, Yes = 1)"]
+politics["Mention"] = politics["Mention of 'Trump' (No = 0, Yes = 1)"].map({0: "No", 1:"Yes"}) #Trump mention was already dummy coded, this maps 0 and 1 to No and Yes respectively
+politics["Mention_dummy"] = politics["Mention of 'Trump' (No = 0, Yes = 1)"] #This makes name shorter
 
 trump = politics[['Country','Mention','Mention_dummy']]
 summary_2 = trump.groupby('Country').agg(
     Mention_of_Trump=("Mention", lambda x: f"{(x == 'Yes').sum()} Yes/ {(x == 'No').sum()} No"), #shows count of Trump mention
-    Avg_Mention=("Mention_dummy","mean") #shows average mention of Trump over 10 posts, 1.0 = 100%,
+    Avg_Mention=("Mention_dummy","mean") #shows average mention of Trump over 10 posts for each country, 1.0 = 100%,
 ).reset_index().round(2)
 
 display_table_2 = summary_2.copy()
