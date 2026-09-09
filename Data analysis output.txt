@@ -1,0 +1,116 @@
+     Country Mean_Engagement  Median_Engagement  Std_Engagement  Total_country_Engagement  Engagement_Count  Avg_GDP_per_capita Avg_Population Mention_of_Trump  Avg_Mention
+      Russia           80.7K            82500.0         9377.88                    806700                10            10462.96         145.6M      8 Yes/ 2 No         0.80
+       China           57.2K            51850.0        12807.01                    572200                10             9859.94        1404.6M      8 Yes/ 2 No         0.80
+      Mexico           55.4K            54750.0        11616.49                    553500                10             9604.01         125.2M      4 Yes/ 6 No         0.40
+     Germany           45.3K            42550.0        11139.22                    453000                10            46864.77          83.0M      7 Yes/ 3 No         0.70
+      France           41.2K            43700.0        10340.02                    412400                10            38954.86          67.0M      7 Yes/ 3 No         0.70
+       Japan           28.9K            11558.5        34276.39                    288816                10            38580.71         125.3M      6 Yes/ 4 No         0.60
+   Australia           22.8K            13660.0        17761.58                    227825                10            56029.00          25.5M      6 Yes/ 4 No         0.60
+     Ireland           21.3K            13693.0        16594.54                    212725                10            81704.92           4.9M      6 Yes/ 4 No         0.60
+      Brazil           19.6K             8798.0        16014.01                    195576                10             8334.30         210.6M      7 Yes/ 3 No         0.70
+   Argentina           18.4K             9892.0        16083.31                    184242                10            13795.26          45.3M      7 Yes/ 3 No         0.70
+       India           13.3K             6693.5        14842.16                    133455                10             2090.91        1395.1M      4 Yes/ 6 No         0.40
+        Cuba           10.3K             7759.0         6859.30                    103266                10            10194.32          11.2M      4 Yes/ 6 No         0.40
+       Egypt            9.1K             5393.0        12412.53                     90741                10             3360.15         109.6M      9 Yes/ 1 No         0.90
+South Africa            8.5K             4616.0         9757.19                     84775                10             6492.45          59.1M      7 Yes/ 3 No         0.70
+   Indonesia            7.3K             1696.5        10887.46                     72636                10             3819.35         266.4M      5 Yes/ 5 No         0.50
+     Jamaica            6.8K              735.0        12669.85                     67923                10             5932.13           2.8M     0 Yes/ 10 No         0.00
+   Singapore            5.3K             3813.5         3673.06                     53373                10            67472.97           5.6M      6 Yes/ 4 No         0.60
+ Switzerland            5.3K             2556.0         6406.95                     53018                10            91449.92           8.4M      3 Yes/ 7 No         0.30
+  Costa Rica            4.9K             1091.0        10751.55                     49162                10            11800.85           4.8M      2 Yes/ 8 No         0.20
+   Lithuania            2.9K               69.5         8305.39                     29381                10            20525.20           2.9M      2 Yes/ 8 No         0.20
+    Pakistan            2.9K             2475.5         1326.82                     29293                10             1446.04         217.8M      5 Yes/ 5 No         0.50
+     Uruguay            2.6K              912.0         3452.50                     26322                10            17662.34           3.4M      5 Yes/ 5 No         0.50
+     Nigeria            2.4K              815.5         3259.94                     23591                10             1967.80         213.0M      7 Yes/ 3 No         0.70
+    Malaysia            1.8K              875.0         2152.03                     18112                10            10715.08          32.3M      5 Yes/ 5 No         0.50
+    Ethiopia            1.6K              495.0         2101.54                     16272                10              684.84         108.3M      6 Yes/ 4 No         0.60
+  Bangladesh            1.1K              489.5         1876.16                     11252                10             1522.36         159.7M      2 Yes/ 8 No         0.20
+     Albania           828.5              246.0         1267.86                      8285                10             7962.90           2.9M      4 Yes/ 6 No         0.40
+       Nepal           582.3               61.5         1235.05                      5823                10             1100.55          28.8M      6 Yes/ 4 No         0.60
+  Kyrgyzstan           270.8               29.5          770.15                      2708                10             1160.25           6.0M      1 Yes/ 9 No         0.10
+    Botswana           251.8                9.0          460.67                      2266                 9             6742.80           2.2M      3 Yes/ 6 No         0.33
+     Namibia            44.6               12.0           55.34                       223                 5             5139.23           2.3M      1 Yes/ 4 No         0.20
+
+Multiple Linear Regression (Mean engagement): GDP per capita + Population
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        Mean_Engagement   R-squared:                       0.145
+Model:                            OLS   Adj. R-squared:                  0.084
+Method:                 Least Squares   F-statistic:                     2.368
+Date:                Wed, 09 Sep 2026   Prob (F-statistic):              0.112
+Time:                        23:29:25   Log-Likelihood:                -348.55
+No. Observations:                  31   AIC:                             703.1
+Df Residuals:                      28   BIC:                             707.4
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+======================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const               8479.5389   4986.649      1.700      0.100   -1735.148    1.87e+04
+Avg_GDP_per_capita     0.1904      0.146      1.300      0.204      -0.109       0.490
+Avg_Population      2.113e-05   1.07e-05      1.981      0.058   -7.23e-07     4.3e-05
+==============================================================================
+Omnibus:                       24.422   Durbin-Watson:                   0.550
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               39.339
+Skew:                           1.923   Prob(JB):                     2.87e-09
+Kurtosis:                       6.958   Cond. No.                     5.29e+08
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 5.29e+08. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Multiple Linear Regression (Logarithmic engagement): GDP per capita + Population
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:         Log_Engagement   R-squared:                       0.256
+Model:                            OLS   Adj. R-squared:                  0.203
+Method:                 Least Squares   F-statistic:                     4.827
+Date:                Wed, 09 Sep 2026   Prob (F-statistic):             0.0158
+Time:                        23:29:25   Log-Likelihood:                -56.854
+No. Observations:                  31   AIC:                             119.7
+Df Residuals:                      28   BIC:                             124.0
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+======================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const                  7.6964      0.409     18.837      0.000       6.859       8.533
+Avg_GDP_per_capita  2.992e-05    1.2e-05      2.494      0.019    5.35e-06    5.45e-05
+Avg_Population      2.044e-09   8.74e-10      2.338      0.027    2.53e-10    3.83e-09
+==============================================================================
+Omnibus:                        1.286   Durbin-Watson:                   0.684
+Prob(Omnibus):                  0.526   Jarque-Bera (JB):                0.650
+Skew:                          -0.349   Prob(JB):                        0.722
+Kurtosis:                       3.127   Cond. No.                     5.29e+08
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 5.29e+08. This might indicate that there are
+strong multicollinearity or other numerical problems.
+Shapiro-Wilk: W = 0.789, p = 0.000
+Residuals are NOT normally distributed
+
+Shapiro-Wilk: W = 0.981, p = 0.831
+Residuals are normally distributed
+
+VIF (Multicollinearity):
+          Variable      VIF
+Avg_GDP_per_capita 1.012619
+    Avg_Population 1.012619
+No multicollinearity concern
+
+Levene's Test: F = 9.817,p = 0.002
+
+T-test: t = 3.791, p < 0.001
+Mean engagement (Trump mentioned):     20577
+Mean engagement (Trump not mentioned): 10865
+Posts mentioning Trump:     153
+Posts not mentioning Trump: 151
+SD (Trump mentioned):   24405
+SD (Trump not mentioned):   20076
+Degrees of freedom: 292.53
+Trump mention rate vs GDP per capita: r = 0.114, p = 0.542
+Trump mention rate vs Population: r = 0.207, p = 0.265
